@@ -1,34 +1,31 @@
-# Daniel Clemente — web final multipágina estática
+# Daniel Clemente — Prototipo 01
 
-Web estática multipágina para Daniel Clemente, nutricionista. Sustituye la landing de prototipo por una arquitectura navegable preparada para GitHub Pages bajo `https://doby-llm.github.io/web-dani-prototype1/`.
+Landing estática para explorar la primera dirección visual de la web de Daniel Clemente.
+
+## Estado
+
+Este repositorio contiene un prototipo público. Los precios, datos de contacto, titulaciones y formulaciones médicas son provisionales hasta su validación.
 
 ## Ejecutar localmente
+
+Desde la raíz del repositorio:
 
 ```bash
 python3 -m http.server 4173
 ```
 
-Abrir `http://localhost:4173/`. No hay build, dependencias externas, CDN, backend, analytics ni envío de formularios.
+Abrir `http://localhost:4173/`.
 
-## Páginas
+## Estructura
 
-- `index.html` — inicio orientado a conversión.
-- `servicios.html` — índice de servicios.
-- `perdida-de-peso.html` — captación principal.
-- `nutricion-deportiva.html` — masa muscular, rendimiento y recuperación.
-- `nutricion-clinica.html` — apoyo clínico con límites claros.
-- `como-funciona.html` — proceso online en cinco pasos.
-- `programas.html` — inclusiones y tarifas provisionales.
-- `sobre-mi.html` — biografía, formación, experiencia, docencia y enfoque.
-- `preguntas-frecuentes.html` — FAQ prudente.
-- `blog.html` — ideas editoriales educativas provisionales.
-- `contacto.html` — canales pendientes y formulario demo.
-- `aviso-legal.html`, `privacidad.html`, `cookies.html` — placeholders legales honestos.
+- `index.html` — estructura y contenido.
+- `styles.css` — tokens visuales, responsive y animaciones.
+- `script.js` — menú móvil, reveal on scroll, navegación activa y formulario de demo.
+- `assets/` — tipografía, imágenes y previsualización social locales.
+- `tests/smoke_test.py` — comprobaciones estáticas básicas.
 
-## Estado y pendientes
+## GitHub Pages
 
-Contenido comercial, precios, colaboración médica, formulación farmacológica, condiciones, denominaciones oficiales, canales de contacto y textos legales están marcados como orientativos/provisionales o pendientes de validación. El formulario de contacto usa `preventDefault`, no solicita datos sanitarios y no envía ni almacena información.
+El repositorio está preparado para GitHub Pages publicando la rama `main` desde la raíz. La página usa rutas relativas para funcionar bajo el subpath del repositorio.
 
-## Verificación
-
-`tests/smoke_test.py` comprueba archivos, metadata, un único H1 por página, enlaces internos, rutas relativas, sitemap, ausencia de `wa.me`, CDN, secretos, formulario honesto y soporte de `prefers-reduced-motion`.
+El formulario muestra estados de demo y no envía datos. Antes de publicar como web comercial hay que conectar un proveedor y revisar privacidad, consentimiento y tratamiento de datos.
