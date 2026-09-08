@@ -15,7 +15,7 @@ Abrir `http://localhost:4173/`. No hay build, dependencias externas, CDN, backen
 - `index.html` — inicio orientado a conversión.
 - `servicios.html` — índice de servicios.
 - `perdida-de-peso.html` — captación principal.
-- `perdida-de-peso-con-apoyo-medico.html` — valoración y seguimiento médico, con alcance prudente y provisional.
+- `perdida-de-peso-con-apoyo-medico.html` — tratamiento médico con farmacología sujeta a indicación y prescripción profesional, acompañado de seguimiento nutricional y de hábitos; alcance provisional.
 - `nutricion-deportiva.html` — masa muscular, rendimiento y recuperación.
 - `nutricion-clinica.html` — apoyo clínico con límites claros.
 - `como-funciona.html` — proceso online en cinco pasos.

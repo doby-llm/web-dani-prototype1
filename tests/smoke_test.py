@@ -176,4 +176,12 @@ locs = [node.text for node in sitemap.findall('.//sm:loc', ns)]
 expected_locs = [BASE_URL] + [BASE_URL + page for page in PAGES if page != 'index.html']
 assert locs == expected_locs, f'sitemap mismatch: {locs}'
 
+medical_page = (ROOT / 'perdida-de-peso-con-apoyo-medico.html').read_text(encoding='utf-8')
+for token in ['Pérdida de peso con tratamiento médico', 'tratamiento farmacológico', 'GLP-1', 'seguimiento nutricional y de hábitos', 'no vende ni dispensa medicamentos']:
+    assert token.lower() in medical_page.lower(), f'medical page missing required wording: {token}'
+for page in ['index.html', 'programas.html']:
+    page_text = (ROOT / page).read_text(encoding='utf-8').lower()
+    assert 'pérdida de peso con tratamiento médico' in page_text or 'nutrición + tratamiento médico' in page_text, f'{page}: missing treatment medical wording'
+assert 'cóctel' not in all_text.lower(), 'informal/undefined cocktail wording found'
+
 print(f'PASS: {len(PAGES)} pages, metadata, links, form safeguards, assets and sitemap verified')
