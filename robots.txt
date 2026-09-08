@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://doby-llm.github.io/web-dani-prototype1/sitemap.xml
