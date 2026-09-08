@@ -177,11 +177,13 @@ expected_locs = [BASE_URL] + [BASE_URL + page for page in PAGES if page != 'inde
 assert locs == expected_locs, f'sitemap mismatch: {locs}'
 
 medical_page = (ROOT / 'perdida-de-peso-con-apoyo-medico.html').read_text(encoding='utf-8')
-for token in ['Pérdida de peso con tratamiento médico', 'tratamiento farmacológico', 'GLP-1', 'seguimiento nutricional y de hábitos', 'no vende ni dispensa medicamentos']:
+for token in ['Pérdida de peso con tratamiento médico', 'tratamiento farmacológico', 'GLP-1', 'seguimiento nutricional y de hábitos', 'no vende ni dispensa medicamentos', 'solución aislada', 'no se recomienda un medicamento concreto', 'no sustituye una consulta médica']:
     assert token.lower() in medical_page.lower(), f'medical page missing required wording: {token}'
 for page in ['index.html', 'programas.html']:
     page_text = (ROOT / page).read_text(encoding='utf-8').lower()
     assert 'pérdida de peso con tratamiento médico' in page_text or 'nutrición + tratamiento médico' in page_text, f'{page}: missing treatment medical wording'
+assert 'no es una solución aislada' in (ROOT / 'index.html').read_text(encoding='utf-8').lower(), 'home missing integrated-treatment safeguard'
+assert 'casos seleccionados' in (ROOT / 'programas.html').read_text(encoding='utf-8').lower(), 'programs missing individual-selection safeguard'
 assert 'cóctel' not in all_text.lower(), 'informal/undefined cocktail wording found'
 
 print(f'PASS: {len(PAGES)} pages, metadata, links, form safeguards, assets and sitemap verified')
