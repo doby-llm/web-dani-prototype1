@@ -185,5 +185,18 @@ for page in ['index.html', 'programas.html']:
 assert 'no es una solución aislada' in (ROOT / 'index.html').read_text(encoding='utf-8').lower(), 'home missing integrated-treatment safeguard'
 assert 'casos seleccionados' in (ROOT / 'programas.html').read_text(encoding='utf-8').lower(), 'programs missing individual-selection safeguard'
 assert 'cóctel' not in all_text.lower(), 'informal/undefined cocktail wording found'
+clinical_page = (ROOT / 'nutricion-clinica.html').read_text(encoding='utf-8').lower()
+for token in ['tratamiento y seguimiento nutricional', 'patologías digestivas', 'alergias e intolerancias', 'dislipemias', 'hipertensión arterial', 'seguimiento práctico', 'seguimiento de hábitos']:
+    assert token in clinical_page, f'clinical page missing required wording: {token}'
+assert 'diabetes' in clinical_page and 'hígado graso' in clinical_page, 'clinical page missing additional metabolic areas'
+
+for forbidden_clinical in ['profesional médica', 'seguimiento médico', 'coordinación necesaria', 'no se modifican medicamentos', 'no constituye un diagnóstico']:
+    assert forbidden_clinical not in clinical_page, f'clinical page contains medical-coordination wording: {forbidden_clinical}'
+
+sports_page = (ROOT / 'nutricion-deportiva.html').read_text(encoding='utf-8').lower()
+for token in ['seguimiento nutricional', 'deportistas de fuerza', 'deportes de resistencia', 'otras modalidades deportivas', 'ganancia de masa muscular', 'rendimiento', 'recuperación', 'excel 365', 'seguimiento semanal']:
+    assert token in sports_page, f'sports page missing required wording: {token}'
+for forbidden_sports in ['profesional médica', 'seguimiento médico', 'farmacología', 'prescripción', 'coordinación necesaria']:
+    assert forbidden_sports not in sports_page, f'sports page contains medical-coordination wording: {forbidden_sports}'
 
 print(f'PASS: {len(PAGES)} pages, metadata, links, form safeguards, assets and sitemap verified')

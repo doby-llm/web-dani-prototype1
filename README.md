@@ -16,8 +16,8 @@ Abrir `http://localhost:4173/`. No hay build, dependencias externas, CDN, backen
 - `servicios.html` — índice de servicios.
 - `perdida-de-peso.html` — captación principal.
 - `perdida-de-peso-con-apoyo-medico.html` — tratamiento médico con farmacología sujeta a indicación y prescripción profesional, acompañado de seguimiento nutricional y de hábitos; alcance provisional.
-- `nutricion-deportiva.html` — masa muscular, rendimiento y recuperación.
-- `nutricion-clinica.html` — apoyo clínico con límites claros.
+- `nutricion-deportiva.html` — seguimiento nutricional para deportistas de fuerza, resistencia y otras modalidades; masa muscular, rendimiento y recuperación; contenido provisional.
+- `nutricion-clinica.html` — tratamiento y seguimiento nutricional en patologías digestivas, alergias e intolerancias, dislipemias, hipertensión y otras situaciones metabólicas; contenido provisional.
 - `como-funciona.html` — proceso online en cinco pasos.
 - `programas.html` — inclusiones y tarifas provisionales.
 - `sobre-mi.html` — biografía, formación, experiencia, docencia y enfoque.
