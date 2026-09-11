@@ -4,7 +4,7 @@
   const links = [...document.querySelectorAll('.site-nav a')];
   const current = document.body.dataset.page || 'index.html';
   const servicePages = new Set(['perdida-de-peso.html', 'perdida-de-peso-con-apoyo-medico.html', 'nutricion-deportiva.html', 'nutricion-clinica.html']);
-  const activePage = servicePages.has(current) ? (current === 'perdida-de-peso-con-apoyo-medico.html' ? 'perdida-de-peso.html' : current) : current;
+  const activePage = servicePages.has(current) ? 'servicios.html' : current;
   const normalize = (href) => {
     const clean = (href || '').split('#')[0];
     return clean === '' || clean === './' ? 'index.html' : clean;
@@ -29,10 +29,14 @@
   });
   nav?.addEventListener('click', (event) => { if (event.target.closest('a')) closeMenu(); });
   document.addEventListener('keydown', (event) => { if (event.key === 'Escape') closeMenu(); });
-  window.addEventListener('resize', () => { if (window.innerWidth >= 981) closeMenu(); });
+  window.addEventListener('resize', () => { if (window.innerWidth >= 1101) closeMenu(); });
 
   const mobileBar = document.querySelector('.mobile-contact-bar');
-  const updateMobileBar = () => mobileBar?.classList.toggle('is-visible', window.scrollY > 260);
+  const updateMobileBar = () => {
+    const visible = window.scrollY > 260;
+    mobileBar?.classList.toggle('is-visible', visible);
+    document.body.classList.toggle('mobile-bar-visible', visible);
+  };
   updateMobileBar();
   window.addEventListener('scroll', updateMobileBar, { passive: true });
 
@@ -55,8 +59,13 @@
   const setError = (input, message) => {
     const row = input?.closest('.form-row');
     const error = input ? document.querySelector(`[data-error-for="${input.name}"]`) : null;
-    row?.classList.toggle('invalid', Boolean(message));
-    if (error) error.textContent = message || '';
+    const invalid = Boolean(message);
+    row?.classList.toggle('invalid', invalid);
+    input?.setAttribute('aria-invalid', String(invalid));
+    if (error) {
+      error.textContent = message || '';
+      error.hidden = !invalid;
+    }
   };
   form?.addEventListener('submit', (event) => {
     event.preventDefault();
@@ -65,9 +74,16 @@
     let valid = true;
     if (!name.value.trim()) { setError(name, 'Escribe tu nombre.'); valid = false; } else setError(name, '');
     if (!email.value.trim() || !email.validity.valid) { setError(email, 'Introduce un email válido.'); valid = false; } else setError(email, '');
-    if (!valid) { status.textContent = 'Revisa los campos marcados. No se ha enviado nada.'; return; }
+    if (!valid) {
+      status.textContent = 'Revisa los campos marcados. No se ha enviado nada.';
+      [name, email].find((field) => field.closest('.form-row')?.classList.contains('invalid'))?.focus();
+      return;
+    }
     status.textContent = 'Demo validada: este formulario no envía ni almacena mensajes.';
     form.reset();
   });
-  form?.querySelectorAll('input, textarea').forEach((field) => field.addEventListener('input', () => { if (field.required && field.value.trim()) setError(field, ''); }));
+  form?.querySelectorAll('input, textarea').forEach((field) => field.addEventListener('input', () => {
+    const validValue = field.required && field.type === 'email' ? field.validity.valid : Boolean(field.value.trim());
+    if (validValue) setError(field, '');
+  }));
 })();

@@ -30,6 +30,12 @@ REQUIRED_ASSETS = [
     'favicon.svg',
     'assets/hero-editorial.png',
     'assets/daniel-about.png',
+    'assets/hero-editorial-640.webp',
+    'assets/hero-editorial-960.webp',
+    'assets/hero-editorial-1440.webp',
+    'assets/daniel-about-480.webp',
+    'assets/daniel-about-768.webp',
+    'assets/daniel-about-1200.webp',
     'assets/Manrope-Variable.ttf',
     'assets/og-image.svg',
     'robots.txt',
@@ -72,6 +78,8 @@ class Parser(HTMLParser):
             self.links.append(attrs['href'])
         if tag in {'img', 'script'} and 'src' in attrs:
             self.sources.append(attrs['src'])
+        if tag == 'source' and 'srcset' in attrs:
+            self.sources.extend(candidate.strip().split()[0] for candidate in (attrs.get('srcset') or '').split(','))
         if tag == 'form':
             self.forms.append(attrs)
         if tag == 'meta':
@@ -156,6 +164,8 @@ for token in ['preventdefault', 'no se envía ni se almacena', 'no introduzcas',
     assert token in contact or token in (ROOT / 'script.js').read_text(encoding='utf-8').lower(), f'missing honest form marker {token}'
 for forbidden in ['name="patologia"', 'name="medicacion"', 'name="diagnostico"', 'name="analitica"', 'medicación actual']:
     assert forbidden not in contact, f'contact form asks sensitive health data: {forbidden}'
+for token in ['aria-invalid="false"', 'aria-describedby="name-error"', 'aria-describedby="email-error"', 'id="name-error"', 'id="email-error"']:
+    assert token in contact, f'contact form missing accessible validation hook: {token}'
 
 all_text = '\n'.join(path.read_text(encoding='utf-8', errors='ignore') for path in [*(ROOT / p for p in PAGES), ROOT / 'styles.css', ROOT / 'script.js'])
 for forbidden in ['https://fonts.googleapis.com', 'cdn.tailwindcss.com', 'kit.fontawesome.com', 'mailto:', 'https://wa.me/', 'info@danielclemente.com']:
